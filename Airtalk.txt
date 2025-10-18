@@ -1,0 +1,34 @@
+
+AirTalk Setup & Run Guide
+===========================
+
+Prerequisites
+- Node.js 18+ (tested on Node 24.9.0)
+
+Install dependencies
+--------------------
+1. Server
+   - `cd server`
+   - `npm install`
+2. Client
+   - `cd client`
+   - `npm install`
+
+Build the client
+----------------
+From `client/` run `npm run build` to generate the production bundle inside `client/dist`.
+
+Start the signaling server
+--------------------------
+From `server/` run `npm run start`. The server serves the REST endpoints, Socket.IO signaling, and the built React app at `http://localhost:4000`.
+
+Environment variables
+---------------------
+Optional: Set `PORT` to change server port. Set `VITE_SOCKET_URL` before building the client if the backend runs on a different origin.
+
+Deployment tips
+---------------
+- Host the Node server on a VPS/Render/Fly with persistent memory.
+- Use HTTPS (reverse proxy like Nginx/Caddy) so WebRTC can access the microphone.
+- Enable sticky sessions if you scale horizontally so that paired users remain on the same instance or use a shared queue (e.g., Redis).
+- Users can block partners mid-call; the server stores blocks in-memory by socket and IP. Restarting the server clears the block list.
