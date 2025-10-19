@@ -20,6 +20,7 @@ RUN chmod +x client/node_modules/.bin/vite
 WORKDIR /app/server
 RUN npm install
 
+RUN npm install uuid@8.3.2
 # Build the client
 WORKDIR /app/client
 RUN npm install && npm run build
