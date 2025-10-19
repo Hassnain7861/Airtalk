@@ -32,3 +32,5 @@ EXPOSE 4000
 # Start the server
 WORKDIR /app/server
 CMD ["npm", "start"]
+
+# Added comment
