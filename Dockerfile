@@ -1,13 +1,13 @@
-# Use Node LTS image
-FROM node:18-alpine
+# Use Node LTS image (non-Alpine to support Vite/esbuild)
+FROM node:18
 
 # Install unzip utility
-RUN apk add --no-cache unzip
+RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
 
-# Create app directory
+# Set working directory
 WORKDIR /app
 
-# Copy the zip file into the container
+# Copy the zipped project into the container
 COPY Airtalk.zip ./
 
 # Unzip the archive into the working directory and remove the zip
@@ -26,11 +26,9 @@ RUN npm install \
 # Set PORT environment variable (Back4App uses PORT)
 ENV PORT=4000
 
-# Expose port for the Node server
+# Expose the port for the Node server
 EXPOSE 4000
 
 # Start the server
 WORKDIR /app/server
 CMD ["npm", "start"]
-
-# Added comment
